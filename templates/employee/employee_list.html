@@ -1,0 +1,40 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Employee List{% endblock title %}
+{% block content %}
+<table class="table table-borderless">
+  <thead class="border-bottom font-weight-bold">
+  <tr>
+      <td>Full Name</td>
+      <td>Employee Code</td>
+      <td>Mobile</td>
+      <td>Position</td>
+      <td> </td>
+
+  </tr>
+  </thead>
+  <tbody>
+  {% for employee in list %}
+  <tr>
+      <td>{{ employee.name }}</td>
+      <td>{{ employee.em_code }}</td>
+      <td>{{ employee.mobile }}</td>
+      <td>{{ employee.position }}</td>
+      <td><a href="{% url 'employee_update' employee.id %}"> &#9998; Edit</a>
+      <form action="{% url 'employee_delete' employee.id %}" method="post" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn">
+            <i> delete</i>
+          </button>
+      </form> </td>
+
+
+
+  </tr>
+  {% endfor %}
+  </tbody>
+
+</table>
+  <a href="{% url 'employee_form' %}" class="btn btn-success">Add employee</a>
+
+ {% endblock %}
